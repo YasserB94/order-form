@@ -42,26 +42,30 @@ $totalValue = 0;
 
 function validate()
 {
-    // TODO: This function will send a list of invalid fields back
-    return [];
+    //All required fields
+    $requiredFields = ["email", "street", "streetnumber", "city", "zipcode"];
+    //Array to hold invalid fields
+    $invalidFields = [];
+    //Check $_POST array, if a field is empty put it in invalidFields Array
+    foreach ($requiredFields as $field) {
+        if ($_POST[$field] === "") {
+            array_push($invalidFields, $field);
+        };
+    }
+    //Return array with invalid fields
+    return $invalidFields;
 }
-
 function handleForm()
 {
-    // TODO: form related tasks (step 1)
-
-    // Validation (step 2)
     $invalidFields = validate();
     if (!empty($invalidFields)) {
-        // TODO: handle errors
+        //ONE OF THE FIELDS IS EMPTY
     } else {
-        // TODO: handle successful submission
+        //ALL FIELDS WERE FILLED IN
     }
 }
-
-// TODO: replace this if by an actual check
-$formSubmitted = false;
-if ($formSubmitted) {
+//Check if form was submitted
+if (isset($_POST['submit'])) {
     handleForm();
 }
 
