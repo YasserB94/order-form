@@ -56,6 +56,10 @@ Productline 2 - Food:
         A bowl out of our hand selected bulk bought nutmix
     * Cheesy Nachos - €5
         Delicious nachos with hot molten cheese
+3. Make the form work on submit!
+Once more, **(w3Schools)[https://www.w3schools.com/php/php_forms.asp]** was the place to be here, I gave the submit button a name and it showed up in $_POST =D
+4. Validate the form
+Currently the validate function only checks if any field is empty or not
 ## TOFIX
 
 ## Summary
