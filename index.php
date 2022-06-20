@@ -10,7 +10,8 @@ declare(strict_types=1);
 session_start();
 
 // Use this function when you need to need an overview of these variables
-function whatIsHappening() {
+function whatIsHappening()
+{
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
     echo '<h2>$_POST</h2>';
@@ -23,8 +24,19 @@ function whatIsHappening() {
 
 // TODO: provide some products (you may overwrite the example)
 $products = [
-    ['name' => 'Your favourite drink', 'price' => 2.5],
+    ['name' => 'Rose All Day Sangria', 'price' => 7],
+    ['name' => 'The Splash', 'price' => 5.5],
+    ['name' => 'Juice Junkee', 'price' => 4.6],
+    ['name' => 'Dirty Talk', 'price' => 5.2],
+    ['name' => 'Limoncello Fizz', 'price' => 8.5],
 ];
+// $products = [
+//     ['name' => 'Manchego', 'price' => 6],
+//     ['name' => 'Spagethi', 'price' => 10.5],
+//     ['name' => 'Olive Dip', 'price' => 5.5],
+//     ['name' => 'Mixed Nuts', 'price' => 1],
+//     ['name' => 'Cheesy Nachos', 'price' => 5],
+// ];
 
 $totalValue = 0;
 
