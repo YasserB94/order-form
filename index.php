@@ -39,12 +39,13 @@ $products = [
 // ];
 
 $totalValue = 0;
+//All required fields
 
 function validate()
 {
-    //All required fields
     $requiredFields = ["email", "street", "streetnumber", "city", "zipcode"];
     //Array to hold invalid fields
+
     $invalidFields = [];
     //Check $_POST array, if a field is empty put it in invalidFields Array
     foreach ($requiredFields as $field) {
@@ -60,13 +61,16 @@ function handleForm()
     $invalidFields = validate();
     if (!empty($invalidFields)) {
         //ONE OF THE FIELDS IS EMPTY
+
     } else {
-        //ALL FIELDS WERE FILLED IN
+        //Fields were validated
+
     }
 }
+
 //Check if form was submitted
 if (isset($_POST['submit'])) {
     handleForm();
 }
-
+whatIsHappening();
 require 'form-view.php';
