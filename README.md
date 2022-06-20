@@ -32,10 +32,9 @@ _This is my interpretation of the 'extra' challenges within the learning challen
     * [ ] Improve the validation with html/js
 ## Progress
 1. **The Concept**
-
 Due to the lack of inspiration let's take a random bar in Antwerp that also sells some food items.
-2. **The Products**
 
+2. **The Products**
 Productline 1 - Drinks:
     * Rose All Day Sangria - €7
         Homemade Sangria based on the rosé wine:'Petit Jamelles' and filled to the brim with fresh fruits!
@@ -58,9 +57,10 @@ Productline 2 - Food:
         A bowl out of our hand selected bulk bought nutmix
     * Cheesy Nachos - €5
         Delicious nachos with hot molten cheese
-3. **Make the form work on submit!**
 
+3. **Make the form work on submit!**
 Once more, **(w3Schools)[https://www.w3schools.com/php/php_forms.asp]** was the place to be here, I gave the submit button a name and it showed up in $_POST =D
+
 4. **Validate the form**
 
 Currently the validate function only checks if any field is empty or not
