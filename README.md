@@ -33,7 +33,29 @@ _This is my interpretation of the 'extra' challenges within the learning challen
 ## Progress
 1. The Concept
 Due to the lack of inspiration let's take a random bar in Antwerp that also sells some food items.
-
+2. The Products
+Productline 1 - Drinks:
+    * Rose All Day Sangria - €7
+        Homemade Sangria based on the rosé wine:'Petit Jamelles' and filled to the brim with fresh fruits!
+    * The Splash - €5.5
+        Creamy IPA with the aromatics of sweet melon, stonefruit and a hint of bubblegum
+    * Juice Junkee - €4.6
+        Creamy IPA with the aromatics of pineapple, mango and passionfruit
+    * Dirty Talk - € 5.2
+        Floral Misty IPA freshly hopped citrus aromatics, a true taste bomb
+    * Limoncello Fizz - €8.5
+        Signature cocktail with sparkling cava,sweet lemon and fresh mint
+Productline 2 - Food:
+    * Manchego - €6
+        Spanish cheese and homemade chutney with crisps
+    * Spagethi - €10.5
+        Home made bolognaise or vegetarian spagetthi
+    * Olive Dip - €5.5
+        Roasted peppers,Sun dried tomatoes and olives with toast
+    * Mixed Nuts - €1 (Free with the purchase of more than 2 drinks)
+        A bowl out of our hand selected bulk bought nutmix
+    * Cheesy Nachos - €5
+        Delicious nachos with hot molten cheese
 ## TOFIX
 
 ## Summary
