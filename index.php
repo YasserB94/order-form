@@ -145,26 +145,33 @@ function calculateTotalOrderPrice()
 }
 function askForUserConfirmation(array $userData, array $selectedProducts)
 {
-    $confirmed = false;
-
-
-    return $confirmed;
 }
 //----MAIN----
 if (isset($_POST['submit'])) {
+    require 'form-view.php';
     $orderFormData = filterOrderFormData(getPostData());
     handleForm($orderFormData);
+} else {
+    require 'form-view.php';
 }
 function handleForm($orderFormData)
 {
     storeInfoToSession(getPostData());
+    $products = getProducts();
     if (!empty(validate($orderFormData))) {
         ReplaceInfoWithErrorMessage(validate($orderFormData));
+        return false;
     } else {
+        echo 'Handling';
+        handleConfirmation();
     }
 }
-require 'form-view.php';
+function handleConfirmation()
+{
+    require 'confirm.php';
+}
 
+require 'footer.php';
 //HELPERS
 function whatIsHappening()
 {
@@ -177,12 +184,6 @@ function whatIsHappening()
     echo '<h2>$_SESSION</h2>';
     var_dump($_SESSION);
 }
-
-
-
-
-
-
 //--------OBSOLETE-----CLEAN ON PRODUCTION----
 // $products = [
 //     ['name' => 'Manchego', 'price' => 6],
@@ -191,8 +192,6 @@ function whatIsHappening()
 //     ['name' => 'Mixed Nuts', 'price' => 1],
 //     ['name' => 'Cheesy Nachos', 'price' => 5],
 // ];
-
-
 // if (!(ctype_alpha($data["street"]) || ctype_alpha($data["city"]))) {
 //     echo "Invalid Street/city";
 // }
