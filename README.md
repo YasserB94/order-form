@@ -62,8 +62,13 @@ Productline 2 - Food:
 Once more, **(w3Schools)[https://www.w3schools.com/php/php_forms.asp]** was the place to be here, I gave the submit button a name and it showed up in $_POST =D
 
 4. **Validate the form**  
+Currently the validate function only checks if any field is empty or not.
+I used this function to see if everything worked as I expected(the way I can read data using the superglobals). Now that I know this works I think I want to use a function to get all of the data in my php script's scope out of the https area. But maintaining the keys.
 
-Currently the validate function only checks if any field is empty or not
+5. **Setting up functions to handle Data**
+Im not sure if this has added benefit, but it does make sense to me to actually have the Data outside of the superglobals. So before continueing on this learning challenge, I want to think about 2 main functions: One that extracts all the data in the POST superglobal when the form is submitted, and another that filters that data so I have an array that only holds the form related data. 
+One of many benefits of this is that I can work with the data without changing the actual values inside the $_POST superglobal, altough I'll have to figure out how to write this and keep the key's aswell!
+
 ## TOFIX
 
 ## Summary
