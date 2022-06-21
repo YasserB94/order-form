@@ -81,7 +81,15 @@ Time to confront this long procrastinated problem, how do I get the user to conf
 Aaand we failed, tough we have some nice !!!Error indicators now whenever a field fails the validation check, and values get stored within $_SESSION which feels insanely risky and unsafe, but it seems to work
 
 9. **Confirm the order**
-Let's try again =( 
+Let's try again =(
+    ---GENIUS COACHES @BECODE 
+        I can split up my php files.... Let's start over and do this the clean way
+
+## The road to success!
+1. **Structure**
+Time to do this properly and split everything up.
+First I'll Refractor the assignment given to fit my own needs by splitting the file up.
+
 ## TOFIX
 
 ## Summary
