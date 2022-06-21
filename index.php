@@ -7,18 +7,27 @@
 declare(strict_types=1);
 // We are going to use session variables so we need to enable sessions
 session_start();
-setlocale(LC_ALL, 'nl_NL');
-function whatIsHappening()
+//GLOBALS
+$products = [
+    ['name' => 'Rose All Day Sangria', 'price' => 7],
+    ['name' => 'The Splash', 'price' => 5.5],
+    ['name' => 'Juice Junkee', 'price' => 4.6],
+    ['name' => 'Dirty Talk', 'price' => 5.2],
+    ['name' => 'Limoncello Fizz', 'price' => 8.5],
+];
+function getProducts()
 {
-    echo '<h2>$_GET</h2>';
-    var_dump($_GET);
-    echo '<h2>$_POST</h2>';
-    var_dump($_POST);
-    echo '<h2>$_COOKIE</h2>';
-    var_dump($_COOKIE);
-    echo '<h2>$_SESSION</h2>';
-    var_dump($_SESSION);
+    $products = [
+        ['name' => 'Rose All Day Sangria', 'price' => 7],
+        ['name' => 'The Splash', 'price' => 5.5],
+        ['name' => 'Juice Junkee', 'price' => 4.6],
+        ['name' => 'Dirty Talk', 'price' => 5.2],
+        ['name' => 'Limoncello Fizz', 'price' => 8.5],
+    ];
+    return $products;
 }
+$totalValue = 0;
+//FUNCTIONS
 function getPostData()
 {
     $Data = [];
@@ -40,20 +49,6 @@ function filterOrderFormData(array $arrayToFilter)
     };
     return $formData;
 }
-
-
-// TODO: provide some products (you may overwrite the example)
-$products = [
-    ['name' => 'Rose All Day Sangria', 'price' => 7],
-    ['name' => 'The Splash', 'price' => 5.5],
-    ['name' => 'Juice Junkee', 'price' => 4.6],
-    ['name' => 'Dirty Talk', 'price' => 5.2],
-    ['name' => 'Limoncello Fizz', 'price' => 8.5],
-];
-
-$totalValue = 0;
-//All required fields
-
 function validate(array $data)
 {
     $invalidFields = [];
@@ -84,24 +79,61 @@ function validate(array $data)
     //Check for valid email adress
     return $invalidFields;
 }
-function handleForm($orderFormData)
+function getOrderedProducts()
 {
-    if (!empty(validate($orderFormData))) {
-        //ONE OF THE FIELDS IS EMPTY
-        echo "INVALID FIELD FOUND";
-        var_dump(validate($orderFormData));
-    } else {
-        //Fields were validated
+    $POST_PRODUCTS = getPostData()["products"];
+    $orderedProducts = [];
+    foreach ($POST_PRODUCTS as $key => $chosen) {
+        if ($chosen) {
+            array_push($orderedProducts, getProducts()[$key]);
+        }
     }
+    return $orderedProducts;
+}
+function getOrderedProductsNames()
+{
+    $products = getOrderedProducts();
+    $productNames = [];
+    foreach ($products as $product) {
+        array_push($productNames, $product["name"]);
+    }
+    return $productNames;
+}
+function askForUserConfirmation(array $userData, array $selectedProducts)
+{
+    $confirmed = false;
+
+
+    return $confirmed;
 }
 //----MAIN----
 if (isset($_POST['submit'])) {
     $orderFormData = filterOrderFormData(getPostData());
     handleForm($orderFormData);
 }
+function handleForm($orderFormData)
+{
+    if (!empty(validate($orderFormData))) {
+        echo "VALIDATION FAILED";
+        var_dump(validate($orderFormData));
+    } else {
+        var_dump(getOrderedProductsNames());
+    }
+}
 require 'form-view.php';
 
-
+//HELPERS
+function whatIsHappening()
+{
+    echo '<h2>$_GET</h2>';
+    var_dump($_GET);
+    echo '<h2>$_POST</h2>';
+    var_dump($_POST);
+    echo '<h2>$_COOKIE</h2>';
+    var_dump($_COOKIE);
+    echo '<h2>$_SESSION</h2>';
+    var_dump($_SESSION);
+}
 
 
 
