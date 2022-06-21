@@ -7,6 +7,18 @@
 declare(strict_types=1);
 // We are going to use session variables so we need to enable sessions
 session_start();
+setlocale(LC_ALL, 'nl_NL');
+function whatIsHappening()
+{
+    echo '<h2>$_GET</h2>';
+    var_dump($_GET);
+    echo '<h2>$_POST</h2>';
+    var_dump($_POST);
+    echo '<h2>$_COOKIE</h2>';
+    var_dump($_COOKIE);
+    echo '<h2>$_SESSION</h2>';
+    var_dump($_SESSION);
+}
 function getPostData()
 {
     $Data = [];
@@ -28,18 +40,7 @@ function filterOrderFormData(array $arrayToFilter)
     };
     return $formData;
 }
-// Use this function when you need to need an overview of these variables
-function whatIsHappening()
-{
-    echo '<h2>$_GET</h2>';
-    var_dump($_GET);
-    echo '<h2>$_POST</h2>';
-    var_dump($_POST);
-    echo '<h2>$_COOKIE</h2>';
-    var_dump($_COOKIE);
-    echo '<h2>$_SESSION</h2>';
-    var_dump($_SESSION);
-}
+
 
 // TODO: provide some products (you may overwrite the example)
 $products = [
@@ -49,6 +50,65 @@ $products = [
     ['name' => 'Dirty Talk', 'price' => 5.2],
     ['name' => 'Limoncello Fizz', 'price' => 8.5],
 ];
+
+$totalValue = 0;
+//All required fields
+
+function validate(array $data)
+{
+    $invalidFields = [];
+    //Check For empty fields;
+    foreach ($data as $key => $value) {
+        if ($value === "") {
+            $invalidFields[$key] = $value;
+        };
+        //RETURN EARLY IF EMPTY FIELDS WERE FOUND
+        if (!empty($invalidFields)) {
+            return $invalidFields;
+        }
+    }
+    //Check if street/city = only letters [A-Z,a-z]
+    if (!ctype_alpha($data["street"])) {
+        $invalidFields["street"] = $data["street"];
+    }
+    if (!ctype_alpha($data["city"])) {
+        $invalidFields["city"] = $data["city"];
+    }
+    //Check if Str number/zipcode = only numbers [0-9]
+    if (!is_numeric($data["streetnumber"])) {
+        $invalidFields["streetnumber"] = $data["streetnumber"];
+    }
+    if (!is_numeric($data["zipcode"])) {
+        $invalidFields["zipcode"] = $data["zipcode"];
+    }
+    //Check for valid email adress
+    return $invalidFields;
+}
+function handleForm($orderFormData)
+{
+    if (!empty(validate($orderFormData))) {
+        //ONE OF THE FIELDS IS EMPTY
+        echo "INVALID FIELD FOUND";
+        var_dump(validate($orderFormData));
+    } else {
+        //Fields were validated
+    }
+}
+//----MAIN----
+if (isset($_POST['submit'])) {
+    $orderFormData = filterOrderFormData(getPostData());
+    handleForm($orderFormData);
+}
+require 'form-view.php';
+
+
+
+
+
+
+
+
+//--------OBSOLETE-----CLEAN ON PRODUCTION----
 // $products = [
 //     ['name' => 'Manchego', 'price' => 6],
 //     ['name' => 'Spagethi', 'price' => 10.5],
@@ -57,42 +117,7 @@ $products = [
 //     ['name' => 'Cheesy Nachos', 'price' => 5],
 // ];
 
-$totalValue = 0;
-//All required fields
 
-function validate()
-{
-    $requiredFields = ["email", "street", "streetnumber", "city", "zipcode"];
-    //Array to hold invalid fields
-
-    $invalidFields = [];
-    //Check $_POST array, if a field is empty put it in invalidFields Array
-    foreach ($requiredFields as $field) {
-        if ($_POST[$field] === "") {
-            array_push($invalidFields, $field);
-        };
-    }
-    //Return array with invalid fields
-    return $invalidFields;
-}
-function handleForm()
-{
-    $invalidFields = validate();
-    if (!empty($invalidFields)) {
-        //ONE OF THE FIELDS IS EMPTY
-
-    } else {
-        //Fields were validated
-        $data = getPostData();
-        var_dump($data);
-        echo ("-----");
-        $formData = filterOrderFormData($data);
-        var_dump($formData);
-    }
-}
-
-//Check if form was submitted
-if (isset($_POST['submit'])) {
-    handleForm();
-}
-require 'form-view.php';
+// if (!(ctype_alpha($data["street"]) || ctype_alpha($data["city"]))) {
+//     echo "Invalid Street/city";
+// }
