@@ -5,10 +5,29 @@
 
 // This line makes PHP behave in a more strict way
 declare(strict_types=1);
-
 // We are going to use session variables so we need to enable sessions
 session_start();
-
+function getPostData()
+{
+    $Data = [];
+    foreach ($_POST as $key => $value) {
+        $Data[$key] = $value;
+    }
+    return $Data;
+}
+function filterOrderFormData(array $arrayToFilter)
+{
+    $requiredFields = ["email", "street", "streetnumber", "city", "zipcode"];
+    $formData = [];
+    foreach ($arrayToFilter as $key => $value) {
+        foreach ($requiredFields as $requiredField) {
+            if ($key === $requiredField) {
+                $formData[$key] = $value;
+            }
+        }
+    };
+    return $formData;
+}
 // Use this function when you need to need an overview of these variables
 function whatIsHappening()
 {
@@ -64,7 +83,11 @@ function handleForm()
 
     } else {
         //Fields were validated
-
+        $data = getPostData();
+        var_dump($data);
+        echo ("-----");
+        $formData = filterOrderFormData($data);
+        var_dump($formData);
     }
 }
 
@@ -72,5 +95,4 @@ function handleForm()
 if (isset($_POST['submit'])) {
     handleForm();
 }
-whatIsHappening();
 require 'form-view.php';
