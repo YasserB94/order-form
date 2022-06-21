@@ -79,6 +79,35 @@ function validate(array $data)
     //Check for valid email adress
     return $invalidFields;
 }
+function ReplaceInfoWithErrorMessage(array $invalidFields)
+{
+    $errormessage = "";
+    foreach ($invalidFields as $key => $value) {
+        if (substr($value, 0, 3) === "!!!") {
+            return;
+        }
+        switch ($key) {
+            case "email":
+                $errormessage = "!!!ERROR!: " . htmlspecialchars($value) . " is not a valid email adress.";
+                break;
+            case "street":
+                $errormessage = "!!!ERROR: " . htmlspecialchars($value) . " is not a valid street name";
+                break;
+            case "city":
+                $errormessage = "!!!ERROR: " . htmlspecialchars($value) . " is not a valid city";
+                break;
+            case "streetnumber":
+                $errormessage = "!!!ERROR: " . htmlspecialchars($value) . " is not a number";
+                break;
+            case "zipcode":
+                $errormessage = "!!!ERROR: " . htmlspecialchars($value) . " is not a valid zipcode";
+                break;
+        }
+        if ($errormessage != "") {
+            $_SESSION[$key] = $errormessage;
+        }
+    }
+}
 function getOrderedProducts()
 {
     $POST_PRODUCTS = getPostData()["products"];
@@ -99,6 +128,21 @@ function getOrderedProductsNames()
     }
     return $productNames;
 }
+function storeInfoToSession($postData)
+{
+    foreach ($postData as $key => $value) {
+        $_SESSION[$key] = $value;
+    }
+}
+function calculateTotalOrderPrice()
+{
+    $orderedProducts = getOrderedProducts();
+    $total = 0;
+    foreach ($orderedProducts as $product) {
+        $total += $product["price"];
+    }
+    return $total;
+}
 function askForUserConfirmation(array $userData, array $selectedProducts)
 {
     $confirmed = false;
@@ -113,11 +157,10 @@ if (isset($_POST['submit'])) {
 }
 function handleForm($orderFormData)
 {
+    storeInfoToSession(getPostData());
     if (!empty(validate($orderFormData))) {
-        echo "VALIDATION FAILED";
-        var_dump(validate($orderFormData));
+        ReplaceInfoWithErrorMessage(validate($orderFormData));
     } else {
-        var_dump(getOrderedProductsNames());
     }
 }
 require 'form-view.php';

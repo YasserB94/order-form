@@ -73,8 +73,15 @@ One of many benefits of this is that I can work with the data without changing t
 Now It's time to refactor the current code(validation) to work outside of the superglobals with the new getPostData and filterOrderFormData functions.
 Also really needed some organisation in this single file mess.
 
-7. **Improving the validation**
+7. **Improving the validation**  
 I was already looking for empty fields, tough for proper validation added a couple more checks to also give an error if the street/city contains numbers and if the str.number or zipcode contains letters
+
+8. **Confirm the order**
+Time to confront this long procrastinated problem, how do I get the user to confirm their order without front end modifications....
+Aaand we failed, tough we have some nice !!!Error indicators now whenever a field fails the validation check, and values get stored within $_SESSION which feels insanely risky and unsafe, but it seems to work
+
+9. **Confirm the order**
+Let's try again =( 
 ## TOFIX
 
 ## Summary
