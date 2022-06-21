@@ -69,6 +69,12 @@ I used this function to see if everything worked as I expected(the way I can rea
 Im not sure if this has added benefit, but it does make sense to me to actually have the Data outside of the superglobals. So before continueing on this learning challenge, I want to think about 2 main functions: One that extracts all the data in the POST superglobal when the form is submitted, and another that filters that data so I have an array that only holds the form related data. 
 One of many benefits of this is that I can work with the data without changing the actual values inside the $_POST superglobal, altough I'll have to figure out how to write this and keep the key's aswell!
 
+6. **Refactoring existing code**
+Now It's time to refactor the current code(validation) to work outside of the superglobals with the new getPostData and filterOrderFormData functions.
+Also really needed some organisation in this single file mess.
+
+7. **Improving the validation**
+I was already looking for empty fields, tough for proper validation added a couple more checks to also give an error if the street/city contains numbers and if the str.number or zipcode contains letters
 ## TOFIX
 
 ## Summary
