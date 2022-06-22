@@ -10,7 +10,8 @@ declare(strict_types=1);
 session_start();
 
 // Use this function when you need to need an overview of these variables
-function whatIsHappening() {
+function whatIsHappening()
+{
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
     echo '<h2>$_POST</h2>';
@@ -20,37 +21,121 @@ function whatIsHappening() {
     echo '<h2>$_SESSION</h2>';
     var_dump($_SESSION);
 }
-
-// TODO: provide some products (you may overwrite the example)
 $products = [
-    ['name' => 'Your favourite drink', 'price' => 2.5],
+    ['name' => 'Rose All Day Sangria', 'price' => 7],
+    ['name' => 'The Splash', 'price' => 5.5],
+    ['name' => 'Juice Junkee', 'price' => 4.6],
+    ['name' => 'Dirty Talk', 'price' => 5.2],
+    ['name' => 'Limoncello Fizz', 'price' => 8.5],
 ];
-
 $totalValue = 0;
-
-function validate()
+function getProducts()
 {
-    // TODO: This function will send a list of invalid fields back
-    return [];
+    $products = [
+        ['name' => 'Rose All Day Sangria', 'price' => 7],
+        ['name' => 'The Splash', 'price' => 5.5],
+        ['name' => 'Juice Junkee', 'price' => 4.6],
+        ['name' => 'Dirty Talk', 'price' => 5.2],
+        ['name' => 'Limoncello Fizz', 'price' => 8.5],
+    ];
+    return $products;
 }
-
-function handleForm()
-{
-    // TODO: form related tasks (step 1)
-
-    // Validation (step 2)
-    $invalidFields = validate();
-    if (!empty($invalidFields)) {
-        // TODO: handle errors
-    } else {
-        // TODO: handle successful submission
-    }
-}
-
-// TODO: replace this if by an actual check
-$formSubmitted = false;
-if ($formSubmitted) {
+if (isset($_POST['submit'])) {
     handleForm();
 }
+function handleForm()
+{
+    $invalidFields = validate($_POST);
+    if (empty($invalidFields)) {
+        showOrderConfirmation();
+        storeUserData();
+    } else {
+        var_dump($invalidFields);
+    }
+    $products = getProducts();
+    $totalValue = 0;
+    require 'form-view.php';
+}
+function storeUserData()
+{
+    $fieldsToStore = ["email", "street", "streetnumber", "city", "zipcode"];
+    foreach ($_POST as $i => $j) {
+        foreach ($fieldsToStore as $x) {
+            if ($i === $x) {
+                $_SESSION[$x] = $j;
+            }
+        }
+    }
+}
+function validate()
+{
+    $invalidFields = [];
+    foreach ($_POST as $key => $value) {
+        switch ($key) {
+            case 'email':
+                $mailRegexPattern = '/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
+                if (preg_match($mailRegexPattern, $value) !== 1) {
+                    $invalidFields[$key] = $value;
+                    break;
+                }
+                break;
+            case 'street':
+            case 'city':
+                if (!ctype_alpha($value)) {
+                    $invalidFields[$key] = $value;
+                    break;
+                } else {
+                    break;
+                }
+            case 'streetnumber':
+            case 'zipcode':
+                if (!is_numeric($value)) {
+                    $invalidFields[$key] = $value;
+                    break;
+                } else {
+                    break;
+                }
+            default:
+                break;
+        }
+    }
+    return $invalidFields;
+}
 
-require 'form-view.php';
+function showOrderConfirmation()
+{
+
+    showConfirmation();
+}
+function parseUserInfo()
+{
+    $requiredFields = ["email", "street", "streetnumber", "city", "zipcode"];
+    $userData = [];
+    foreach ($_POST as $key => $value) {
+        foreach ($requiredFields as $field) {
+            if ($key === $field) {
+                $sanitizedValue = htmlspecialchars($value);
+                $userData[$key] = $key . " : " . $sanitizedValue;
+            }
+        }
+    }
+    return $userData;
+}
+function getOrderedProducts()
+{
+    $products = getProducts();
+    $orderedProducts = [];
+    if (isset($_POST['products'])) {
+        foreach ($_POST['products'] as $i => $productIndex) {
+            array_push($orderedProducts, $products[$i]);
+        }
+    }
+    return $orderedProducts;
+}
+function showConfirmation()
+{
+    require 'confirm.php';
+}
+if (!isset($_POST['submit'])) {
+    require 'form-view.php';
+}
