@@ -45,6 +45,7 @@ if (isset($_POST['submit'])) {
 }
 function handleForm()
 {
+    require 'head.php';
     $invalidFields = validate($_POST);
     if (empty($invalidFields)) {
         showOrderConfirmation();
@@ -137,5 +138,6 @@ function showConfirmation()
     require 'confirm.php';
 }
 if (!isset($_POST['submit'])) {
+    require 'head.php';
     require 'form-view.php';
 }
